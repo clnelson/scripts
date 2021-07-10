@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+#: Author: clnelson@github.com
+#: Date: Nov-2020
+#: A script to setup an Android build environment on a new Ubuntu machine
+
+echo "Updating sources & installing the necessary packages to build Android!"
+
+sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive \
+    apt-get install aapt abootimg adb android-framework-res android-sdk* \
+    android-sdk-platform-23- apksigner apktool append2simg apt-utils autoconf \
+    automake autogen axel bc bison build-essential ccache clang cmake curl jq \
+    dalvik-exchange dexdump dexlist expat fastboot flex g++ g++-multilib gawk \
+    gcc gcc-multilib git gnupg gperf help2man htop hub img2simg imagemagick \
+    libexpat1-dev libgmp-dev '^liblz4-.*' '^liblzma.*' libmpc-dev libmpfr-dev libsmali-java \
+    libsmali-1-java lib32ncurses5-dev lib32z-dev lib32z1-dev libtinfo5 libc6-dev libcap-dev \
+    libc6-dev-i386 x11proto-core-dev libx11-dev libxml-simple-perl libgl1-mesa-dev \
+    libxml2-utils lsb-core xsltproc maven ncftp ncurses-dev openjdk-8-jdk pidcat \
+    patch patchelf pkg-config pngcrush pngquant python2.7 python-all-dev re2c schedtool \
+    simg2img skales squashfs-tools subversion w3m texinfo unzip xsltproc zip zlib1g-dev lzip \
+    libncurses5-dev libsdl1.2-dev libssl-dev libtool libxml2 libxml2-utils '^lzma.*' lzop \
+    zipalign p7zip-full -y
+
+echo "Installing Google's repo tool..."
+if [ -d ~/.local/bin ]; then
+    sudo curl -L -o ~/.local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
+else
+    sudo curl --create-dirs -L -o ~/.local/bin/repo -O -L https://storage.googleapis.com/git-repo-downloads/repo
+fi
+sudo chmod a+rx ~/.local/bin/repo
+
+if [[ "$(command -v make)" ]]; then
+    echo "Checking make installation and version..."
+    makeversion="$(make -v | head -1 | awk '{print $3}')"
+    if [[ ${makeversion} != "${LATEST_MAKE_VERSION}" ]]; then
+        echo "Installing make ${LATEST_MAKE_VERSION} instead of ${makeversion}"
+        bash "$(dirname "$0")"/make.sh "${LATEST_MAKE_VERSION}"
+    fi
+fi
+
+source ~/scripts/setup/git.sh
+source ~/scripts/setup/hub.sh
+source ~/scripts/setup/git-config.sh
+source ~/scripts/setup/ccache.sh
+source ~/scripts/setup/colors.sh

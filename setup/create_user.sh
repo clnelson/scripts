@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-# Script to add a new username to a Linux System
-
-export username="${1}"
-if [ -z "${username}" ]; then
-    echo -e "Please enter a username"
-    read -r username
+# Script to add a new Name to a Linux System
+export Name="${1}"
+if [ -z "${Name}" ]; then
+    echo -e "Please enter a Name"
+    read -r Name
 fi
-sudo useradd "${username}" -m -s /bin/bash
-passwd "${username}"
-chage -d 0 "${username}"
+sudo useradd "${Name}" -m -s /bin/bash
+passwd "${Name}"
+chage -d 0 "${Name}"
