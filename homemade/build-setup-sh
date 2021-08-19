@@ -7,8 +7,8 @@
 echo "Updating sources & installing the necessary packages to build Android!"
 
 sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive \
-    sudo apt-get install aapt abootimg adb android-framework-res android-sdk* \
-    android-sdk-platform-23- apksigner apktool append2simg apt-utils autoconf \
+    apt-get install aapt abootimg adb android-framework-res android-sdk* \
+    android-sdk-platform-23 apksigner apktool append2simg apt-utils autoconf \
     automake autogen axel bc bison build-essential ccache clang cmake curl \
     dalvik-exchange dexdump dexlist expat fastboot flex g++ g++-multilib gawk \
     gcc gcc-multilib git-core gnupg gperf help2man htop hub img2simg imagemagick \
@@ -37,5 +37,3 @@ if [[ "$(command -v make)" ]]; then
         bash "$(dirname "$0")"/make.sh "${LATEST_MAKE_VERSION}"
     fi
 fi
-
-source ~/scripts/
