@@ -2,25 +2,24 @@
 
 ## Script for helping automate new Termux
 ## installations on Android devices
-pkg upgrade -y && pkg install git
+pkg upgrade -y && pkg install git -y
 
-apt update && apt-get \
+apt update && apt \
 	DEBIAN_FRONTEND=noninteractive install \
 	science-repo game-repo unstable-repo \
-	x11-repo fd file inxi neofetch curl wget \
+	x11-repo -y
+sleep 1
+apt install fd file inxi neofetch curl wget \
 	aapt ffmpeg gzip bat nmap make man nano \
 	openssh python python2 rsync texinfo unzip \
-	xz-utils zlib img2sdat sdat2img mkbootimg \
-	ext4fs-tools tar zstd shtool aapt bzip2 \
-	geany geany-plugins lolcat lsof vdexextractor
-	 -y
+	xz-utils zlib tar zstd shtool bzip2 lsof -y
 
-git clone https://github.com/Biggin/Termux_Bash -b mobile ~/termux_bash
+git clone https://github.com/Biggin/termux_bash -b mobile ~/
 
 if [ -d ~/termux_bash/bash ]; then
-	cd ~/termux_bash/bash || return 13
+	cd ~/termux_bash/bash || exit 13
 	cp ../.infokey ~/
-	cp -r .config .termux banner nanorc \
+	cp -r .config .local .termux banner nanorc \
 		.dircolors .git* ~/
 	cd ~/ && mv banner nanorc $PREFIX/etc/
 	echo -ne '\nneofetch\ncat $PREFIX/etc/banner' >> $PREFIX/etc/profile
@@ -33,3 +32,6 @@ if [ -d ~/termux_bash/bash ]; then
 		~/.bashrc && source ~/.bashrc
 		rm -rf ~/.dotfiles/custom
 	fi
+
+termux-reload-settings
+termux-setup-storage
