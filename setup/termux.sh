@@ -13,8 +13,8 @@ sleep 1
 apt install fd file inxi neofetch curl wget git \
 	aapt ffmpeg gzip bat nmap make man megatools \
 	nano openssh python python2 rsync texinfo \
-	unzip xz-utils zlib tar zstd shtool bzip2 \
-	lsof openjdk-17 -y
+	unzip xz-utils zlib tar zstd shtool bzip2 pv \
+	lsof openjdk-17 p7zip manpages mediainfo -y
 
 git clone https://github.com/clnelson/termux_bash -b mobile ~/
 
