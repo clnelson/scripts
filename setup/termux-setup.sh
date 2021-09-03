@@ -14,7 +14,7 @@ apt-get install aapt aria2 bat binutils curl exa fd \
 	openjdk-17 openssh progress pv python python2 rsync \
 	tar texinfo unzip wget2 xz-utils zlib zstd -y
 
-git clone https://github.com/Biggin/termux_bash -b mobile ~/
+git clone https://github.com/clnelson/termux_bash -b mobile ~/
 
 if [ -d ~/termux_bash/bash ]; then
 	cd ~/termux_bash/bash || exit 13
@@ -34,5 +34,19 @@ if [ -d ~/termux_bash/bash ]; then
 	fi
 fi
 
+if [ -z ~/scripts ]; then
+	git clone https://github.com/clnelson/scripts -b mobile ~/scripts
+	cd ~/scripts || exit 13
+	bash setup/termux.sh
+else
+	cd ~/scripts || exit 13
+	bash setup/termux.sh
+fi
+
+bat cache --build
+sleep 0.5
+
 termux-reload-settings
 termux-setup-storage
+
+source ~/scripts/setup/git-id.sh
