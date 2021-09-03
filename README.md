@@ -1,6 +1,6 @@
 Run these commands
 ```bash
-$ git clone https://github.com/clnelson/scripts
+$ git clone https://github.com/clnelson/scripts -b mobile
 $ cd scripts
 $ bash setup/<name of script>
 ```
