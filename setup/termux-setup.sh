@@ -9,10 +9,12 @@ apt update && apt \
 	science-repo game-repo unstable-repo \
 	x11-repo -y
 sleep 1
+
 apt install fd file inxi neofetch curl wget \
-	aapt ffmpeg gzip bat nmap make man nano \
-	openssh python python2 rsync texinfo unzip \
-	xz-utils zlib tar zstd shtool bzip2 lsof -y
+	aapt ffmpeg gzip bat nmap make man megatools \
+	nano openssh python python2 rsync texinfo \
+	unzip xz-utils zlib tar zstd shtool bzip2 \
+	lsof openjdk-17 -y
 
 git clone https://github.com/Biggin/termux_bash -b mobile ~/
 
