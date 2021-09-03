@@ -2,7 +2,7 @@
 
 ## Script for helping automate new Termux
 ## installations on Android devices
-pkg upgrade -y && pkg install git -y
+pkg upgrade -y
 
 apt update && apt \
 	DEBIAN_FRONTEND=noninteractive install \
@@ -10,13 +10,13 @@ apt update && apt \
 	x11-repo -y
 sleep 1
 
-apt install fd file inxi neofetch curl wget \
+apt install fd file inxi neofetch curl wget git \
 	aapt ffmpeg gzip bat nmap make man megatools \
 	nano openssh python python2 rsync texinfo \
 	unzip xz-utils zlib tar zstd shtool bzip2 \
 	lsof openjdk-17 -y
 
-git clone https://github.com/Biggin/termux_bash -b mobile ~/
+git clone https://github.com/clnelson/termux_bash -b mobile ~/
 
 if [ -d ~/termux_bash/bash ]; then
 	cd ~/termux_bash/bash || exit 13
@@ -45,7 +45,10 @@ else
 	bash setup/termux.sh
 fi
 
+bat cache --build
+sleep 0.5
+
 termux-reload-settings
 termux-setup-storage
 
-return 0
+source ~/scripts/setup/git-id.sh

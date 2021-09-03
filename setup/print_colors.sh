@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 
 printf '\nThis is a test of Foreground\n'
 printf '%bThis is a test of Bright_Foreground%b\n\n' "${Bfg}" "${Res}"
