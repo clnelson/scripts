@@ -2,6 +2,8 @@
 
 # Copyright (C) Harsh Shandilya <msfjarvis@gmail.com>
 # SPDX-License-Identifier: GPL-3.0-only
+sudo apt update
+sudo apt install jq aria2c -y
 
 function get_release_assets() {
     local REPOSITORY RELEASE_TAG RELEASE_ID TMP_FILE
@@ -42,7 +44,7 @@ function install_hub() {
         LATEST_VERSION="$(get_latest_release github/hub)"
         if [ "${INSTALLED_VERSION}" != "${LATEST_VERSION}" ]; then
             echo -e "${CL_YLW} Outdated version of hub detected, upgrading${CL_RST}"
-            wget "$(get_release_assets github/hub | grep ${HUB_ARCH})" -O=hub.tgz
+            wget "$(get_release_assets github/hub | grep ${HUB_ARCH})" -O hub.tgz
             mkdir -p hub
             tar -xf hub.tgz -C hub
             sudo ./hub/*/install --prefix=/usr/local/
