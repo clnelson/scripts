@@ -30,7 +30,6 @@
 
 echo -e ${Grn}"Git identity setup successfully!"${Res}
 sleep 2
-echo -e ${Mag}"$(git config --list)"${Res}
 
 ## Git configuration variables for my system
 git config --global core.editor "nano"
@@ -95,3 +94,9 @@ git config --global merge.log "true"
 git config --global merge.tool "bc"
 git config --global rerere.enabled "true"
 git config --global credential.helper "cache --timeout=7200"
+
+echo "" >> ~/.gitconfig
+echo -e '[pager]\n\tdiff = delta\n\tlog = delta\n\treflog = delta\n\tshow = delta\n\n[delta]\n\tplus-style = "syntax #012800"\n\tminus-style = "syntax #340001"\n\tsyntax-theme = Monokai Extended\n\tnavigate = true\n\n[interactive]\n\t    diffFilter = delta --color-only' >> ~/.gitconfig
+
+
+echo -e ${Cya}"$(git config --list)"${Res}
