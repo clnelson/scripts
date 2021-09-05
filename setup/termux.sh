@@ -6,15 +6,14 @@ pkg upgrade -y
 
 apt update && apt \
 	DEBIAN_FRONTEND=noninteractive install \
-	science-repo game-repo unstable-repo \
-	x11-repo -y
+	game-repo science-repo unstable-repo x11-repo -y
 sleep 1
 
-apt install fd file inxi neofetch curl wget git \
-	aapt ffmpeg gzip bat nmap make man megatools \
-	most nano openssh python python2 rsync texinfo \
-	unzip xz-utils zlib tar zstd shtool bzip2 pv \
-	lsof openjdk-17 p7zip manpages mediainfo -y
+apt install aapt bat bzip2 curl fd ffmpeg file git \
+	git-delta gzip inxi lsof make man manpages mediainfo \
+	megatools most nano neofetch nmap openjdk-17 openssh \
+	p7zip pv python python2 rsync shtool tar texinfo unzip \
+	wget xz-utils zlib zstd -y
 
 git clone https://github.com/clnelson/termux_bash -b mobile ~/
 
