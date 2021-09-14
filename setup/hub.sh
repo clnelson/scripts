@@ -9,19 +9,18 @@ function get_release_assets() {
     RELEASE_TAG="${2:-latest}"
     TMP_FILE="$(mktemp)"
     if [ "${RELEASE_TAG}" == "latest" ]; then
-        RELEASE_ID=$(curl --silent "https://api.github.com/repos/${1:?}/releases/latest" | # Get the latest release from GitHub API
-            jq -r .id)
+        RELEASE_ID=$(curl --silent "https://api.github.com/repos/${1:?}/releases/latest" | jq -r .id)
+        # Get the latest release from GitHub API
     else
         curl --silent "https://api.github.com/repos/${REPOSITORY}/releases" | jq '.[] | {id: .id, name: .tag_name}' > "${TMP_FILE}"
-        RELEASE_ID=$(jq -r '"\(.id) \(.name)"' "${TMP_FILE}" | grep "${RELEASE_TAG}" | awk '{print $1}')
+        RELEASE_ID=$(jq -r '"\(.id) \(.name)"' "${TMP_FILE}" | grep  "${RELEASE_TAG}" | awk '{print $2}')
     fi
     curl --silent "https://api.github.com/repos/${REPOSITORY}/releases/${RELEASE_ID}" | jq -r .assets[].browser_download_url
     [ -f "${TMP_FILE}" ] && rm -f "${TMP_FILE}"
 }
 
 function get_latest_release() {
-    curl --silent "https://api.github.com/repos/${1:?}/releases/latest" | # Get latest release from GitHub API
-        jq -r .tag_name                                                   # Get tag line
+    curl --silent "https://api.github.com/repos/${1:?}/releases/latest" |   jq -r .tag_name
 }
 
 function install_hub() {
@@ -31,7 +30,7 @@ function install_hub() {
     echo "Checking and installing hub"
     HUB="$(command -v hub)"
 #    HUB_ARCH=linux-amd64
-    HUB_ARCH=linux-i386
+    HUB_ARCH=linux-386
     if [ -z "${HUB}" ]; then
         aria2c "$(get_release_assets github/hub | grep ${HUB_ARCH})" -o hub.tgz || wget "$(get_release_assets github/hub | grep ${HUB_ARCH})" -O hub.tgz
         mkdir -p hub

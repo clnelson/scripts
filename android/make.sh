@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+LATEST_MAKE_VERSION="4.3"
 
 cd /tmp || exit 13
 axel -a -n 10 https://ftp.gnu.org/gnu/make/make-"${1:?}".tar.gz
@@ -11,4 +12,6 @@ sudo install ./make /usr/local/bin/make
 
 cd - || exit 13
 rm -rf /tmp/make-"${1:?}"{,.tar.gz}
+
+echo -e '\n\n'
 make --version

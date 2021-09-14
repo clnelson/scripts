@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LATEST_TAG=$(curl https://api.github.com/repos/git/git/tags | jq -r '.[0].name')
+LATEST_TAG=$(curl -s https://api.github.com/repos/git/git/tags | jq -r '.[0].name')
 
 git clone https://github.com/git/git -b "$LATEST_TAG"
 
@@ -10,7 +10,7 @@ make configure
 
 ./configure --prefix=/usr/local/ --with-curl
 
-make install -j"$(nproc)"
+sudo make install -j"$(nproc)"
 
 cd - || exit 13
 rm -rf git
@@ -22,4 +22,8 @@ if [ -z ${GIT_ID} ]; then
 else
 	bash ~/scripts/git-id.sh ${GIT_ID}
 fi
+
+echo -e ${Cya}"Setting up 'git' identity and user configurations!"${Res}
+sleep 0.5
+
 git --version

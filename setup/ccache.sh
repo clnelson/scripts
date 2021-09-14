@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 
-cd /tmp || exit 13
-git clone git://github.com/ccache/ccache.git
+#cd /tmp || exit 13
+git clone https://github.com/ccache/ccache.git
 
 cd ccache || exit 13
-./autogen.sh
-./configure --with-libzstd-from-internet --with-libb2-from-internet
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local \
+	-DHIREDIS_FROM_INTERNET=ON -DZSTD_FROM_INTERNET=ON
+#./configure --with-libzstd-from-internet --with-libb2-from-internet
 make -j"$(nproc)"
 sudo make install
 
 rm -rf "${PWD}"
-cd ~/.local/bin || exit 13
 
 if [ $(command -v ccache) ]; then
-	local CC=$(which ccache)
+	CC=$(which ccache)
+	cd ~/.local/bin || exit 13
 	ln -s ${CC} gcc
 	ln -s ${CC} g++
 	ln -s ${CC} cc
