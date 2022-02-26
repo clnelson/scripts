@@ -2,20 +2,19 @@
 
 ## Script for helping automate new Termux
 ## installations on Android devices
-pkg upgrade -y && pkg install git
+pkg upgrade -y
 
-apt update && apt-get \
-	DEBIAN_FRONTEND=noninteractive install \
-	science-repo game-repo unstable-repo \
-	x11-repo fd file inxi neofetch curl wget \
-	aapt ffmpeg gzip bat nmap make man nano \
-	openssh python python2 rsync texinfo unzip \
-	xz-utils zlib img2sdat sdat2img mkbootimg \
-	ext4fs-tools tar zstd shtool aapt bzip2 \
-	geany geany-plugins lolcat lsof vdexextractor
-	 -y
+apt-get update && apt-get install \
+	science-repo game-repo unstable-repo x11-repo git -y
 
-git clone https://github.com/Biggin/Termux_Bash -b mobile ~/termux_bash
+apt-get install aapt aria2 bat binutils curl exa fd \
+	ffmpeg file geany geany-plugins gzip hexedit inxi lsof \
+	make man most nano neofetch nmap openjdk-17 openssh \
+	progress pv python python2 rsync tar texinfo unzip \
+	wget xz-utils zlib zstd -y
+
+git clone https://github.com/Biggin/Termux_Bash -b \
+  mobile ~/termux_bash
 
 if [ -d ~/termux_bash/bash ]; then
 	cd ~/termux_bash/bash || return 13
@@ -33,3 +32,4 @@ if [ -d ~/termux_bash/bash ]; then
 		~/.bashrc && source ~/.bashrc
 		rm -rf ~/.dotfiles/custom
 	fi
+fi

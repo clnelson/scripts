@@ -7,13 +7,13 @@
 # Help
 [ "$1" == "--help" ] || [ "$1" == "-h" ] || [ "$1" == "help" ] &&
     {
-        echo "Usage: ./ssh-copy-id-github [username]"
-        echo "Adds .ssh/id_ed25519.pub to your Github's SSH keys."
+        echo -en "${Byel}\tUsage: ./ssh-copy-id-github [username]\n"
+        echo -en "\tAdds .ssh/id_ed25519.pub to your Github's SSH keys.\n"
 
-        echo "Usage: ./ssh-copy-id-github [username] [pub_key_file]"
-        echo "Adds specified Public Key File to your Github's SSH keys."
+        echo -en "\n\tUsage: ./ssh-copy-id-github [username] [pub_key_file]\n"
+        echo -en "\tAdds specified Public Key File to your Github's SSH keys.\n$Res"
 
-        echo "With confirmation, non-exiting Public Key File kicks off ssh-keygen"
+        echo -en "${Bwhi}\n\tNon-existing Public Key File kicks off ssh-keygen$Res\n\n\n"
         exit
     }
 
